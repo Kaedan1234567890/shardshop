@@ -1,4 +1,4 @@
-# Chill Zone Shard Shop — 0.1.0-alpha-fix1
+# Chill Zone Shard Shop — 0.1.0-alpha-fix2
 
 Server-side Fabric mod for Minecraft 26.2.
 
@@ -50,3 +50,12 @@ Removed the unused spawner shop and its SpawnerFactory code. This also removes
  the Minecraft 26.2 `BLOCK_ENTITY_DATA` compile error from the original alpha.
 Changed the main shop to a regular chest with a centred Skeleton Skull for Deaths,
 and changed every saved death icon to a Skeleton Skull.
+
+## Fix2 clean-source note
+This release intentionally contains **no spawner shop code**. The only shop category is **Deaths**.
+
+If upgrading a GitHub repository that previously contained the alpha version, delete these obsolete files from the repository before building if they are still present:
+- `src/main/java/com/chillzone/shardshop/SpawnerFactory.java`
+- `src/main/java/com/chillzone/shardshop/ui/SpawnerMenu.java`
+
+Git does not delete old files merely because a newer ZIP does not contain them. A clean replacement of the repository contents avoids compiling obsolete spawner classes.
