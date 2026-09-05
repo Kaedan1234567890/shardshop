@@ -74,7 +74,7 @@ public final class DeathMenu extends ChestMenu {
             getContainer().setItem(DEATH_SLOTS[i], Ui.button(
                 Ui.item("skeleton_skull"),
                 Ui.name(label, ChatFormatting.AQUA, ChatFormatting.BOLD),
-                Ui.lore(prettyDimension(d.dimension())),
+                Ui.lore("Dimension: " + prettyDimension(d.dimension())),
                 Ui.lore(String.format(Locale.ROOT, "Death Location: %.1f, %.1f, %.1f", d.x(), d.y(), d.z())),
                 Ui.lore("Time: " + TIME.format(Instant.ofEpochMilli(d.timestamp()))),
                 Ui.lore("Cause: " + trim(d.cause(), 60)),

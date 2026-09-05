@@ -59,3 +59,12 @@ If upgrading a GitHub repository that previously contained the alpha version, de
 - `src/main/java/com/chillzone/shardshop/ui/SpawnerMenu.java`
 
 Git does not delete old files merely because a newer ZIP does not contain them. A clean replacement of the repository contents avoids compiling obsolete spawner classes.
+
+
+## Fix 3 — dimension death teleport
+- Keeps the existing `/shardshop` GUI, death slots, skull layout, Last Death ordering, 50-shard price, and saved history unchanged.
+- Death skull lore now explicitly displays the saved death dimension (Overworld, The Nether, or The End).
+- Safe-location checks now load the destination chunk before validating it, allowing saved deaths in another dimension to be checked and teleported to correctly.
+- Nether-roof deaths are accepted when the recorded spot (or a nearby spot within the configured safety radius) has solid ground and enough empty space.
+- End deaths use the same local safety rule and will not select unsupported air over the void.
+- If no safe location exists near the saved death, teleport is cancelled and no shards are charged.

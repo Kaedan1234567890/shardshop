@@ -93,7 +93,12 @@ public final class DeathTeleport {
     }
 
     private static boolean safe(ServerLevel level, BlockPos feet) {
-        if (!level.hasChunkAt(feet)) return false;
+        // Deaths can be in a different dimension from the player. In that case
+        // the destination chunk may not currently be loaded. Force-load the
+        // small destination area before checking collision/fluid safety so
+        // Nether, Nether-roof, End, and cross-dimension deaths can be used.
+        level.getChunk(feet.getX() >> 4, feet.getZ() >> 4);
+
         BlockPos head = feet.above();
         BlockPos floor = feet.below();
         if (!level.getFluidState(feet).isEmpty() || !level.getFluidState(head).isEmpty()) return false;
