@@ -1,34 +1,52 @@
-# Chill Zone Shard Shop 0.1.0-alpha
+# Chill Zone Shard Shop — 0.1.0-alpha-fix1
 
 Server-side Fabric mod for Minecraft 26.2.
 
-## Features
-- `/shardshop` opens a 6x9 Chill Zone chest GUI.
-- Uses the **same shard balance as Chill Zone Homes** through its public shard store at runtime. It does not create a second currency.
-- Saves the player's **28 most recent deaths** in `config/chill-zone-shard-shop-deaths.json`.
-- Newest entry is **Last Death**, then Death 2 through Death 28.
-- Oldest death rolls off when a 29th death is recorded.
-- Death entries show dimension, exact coordinates, timestamp, cause and teleport cost.
-- Death teleport costs **50 Shards** by default.
-- Exact death location is tried first. If unsafe, the mod searches only within a maximum **10 block horizontal radius** and limited vertical range.
-- If no nearby safe location is found, teleport is cancelled and the player is **not charged**.
-- Using a death teleport does **not** delete the death record.
-- Includes a configurable preconfigured mob-spawner shop.
-- Transactions are logged to `config/chill-zone-shard-shop-transactions.log`.
+## First-release design
 
-## Config
-On first launch, `config/chill-zone-shard-shop.json` is created. Default values:
-- deathTeleportCost: 50
-- safeTeleportRadius: 10
-- safeTeleportVerticalRadius: 4
-- starter spawner prices are included and can be changed without rebuilding the mod.
+`/shardshop` opens a regular 3-row chest GUI with a decorative glass border.
+The only category in this release is **Deaths**, represented by a Skeleton Skull
+in the exact centre of the menu.
 
-The initial spawner prices are placeholders for balancing; edit the JSON whenever the final Chill Zone prices are decided.
+Clicking **Deaths** opens a 6-row double chest containing the player's rolling
+history of up to 28 deaths. Each saved death is represented by a Skeleton Skull.
+Empty death positions remain empty and a skull appears automatically when a new
+death is recorded.
 
-## Required mod
-This mod requires Chill Zone Homes because Homes owns the shard balance.
+Newest-to-oldest labels are:
+- Last Death
+- Death 2
+- Death 3
+- ...
+- Death 28
 
-## Build
-Push the source to GitHub and run the included GitHub Actions workflow, or build with Java 25 and Gradle 9.5.1:
+When death 29 is recorded, the previous Death 28 ages out.
 
-`gradle build`
+## Death teleport
+
+- Cost: 50 shards per use by default.
+- Uses the existing Chill Zone Homes shard balance; no second currency is made.
+- Exact death position is tried first.
+- If unsafe, the mod searches nearby only, up to 10 blocks horizontally by default.
+- If no safe destination is found nearby, the teleport is cancelled and no shards
+  are charged.
+- If charging succeeds but the teleport itself errors, the shards are refunded.
+- Using a death teleport does not delete the saved death record.
+
+## Persistence
+
+Death history is stored in:
+`config/chill-zone-shard-shop-deaths.json`
+
+Config is stored in:
+`config/chill-zone-shard-shop.json`
+
+Transactions are logged in:
+`config/chill-zone-shard-shop-transactions.log`
+
+## fix1
+
+Removed the unused spawner shop and its SpawnerFactory code. This also removes
+ the Minecraft 26.2 `BLOCK_ENTITY_DATA` compile error from the original alpha.
+Changed the main shop to a regular chest with a centred Skeleton Skull for Deaths,
+and changed every saved death icon to a Skeleton Skull.

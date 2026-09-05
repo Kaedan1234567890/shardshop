@@ -3,7 +3,7 @@
   "id": "chillzoneshardshop",
   "version": "${version}",
   "name": "Chill Zone Shard Shop",
-  "description": "Shard-powered death teleports and preconfigured mob spawners for Chill Zone SMP.",
+  "description": "Shard-powered saved death teleports for Chill Zone SMP.",
   "authors": ["Chill Zone SMP"],
   "environment": "server",
   "entrypoints": {
