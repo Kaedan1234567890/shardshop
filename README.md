@@ -24,7 +24,7 @@ When death 29 is recorded, the previous Death 28 ages out.
 
 ## Death teleport
 
-- Cost: 50 shards per use by default.
+- Cost: 25 shards per use by default.
 - Uses the existing Chill Zone Homes shard balance; no second currency is made.
 - Exact death position is tried first.
 - If unsafe, the mod searches nearby only, up to 10 blocks horizontally by default.
@@ -62,7 +62,7 @@ Git does not delete old files merely because a newer ZIP does not contain them. 
 
 
 ## Fix 3 — dimension death teleport
-- Keeps the existing `/shardshop` GUI, death slots, skull layout, Last Death ordering, 50-shard price, and saved history unchanged.
+- Keeps the existing `/shardshop` GUI, death slots, skull layout, Last Death ordering, 25-shard price, and saved history unchanged.
 - Death skull lore now explicitly displays the saved death dimension (Overworld, The Nether, or The End).
 - Safe-location checks now load the destination chunk before validating it, allowing saved deaths in another dimension to be checked and teleported to correctly.
 - Nether-roof deaths are accepted when the recorded spot (or a nearby spot within the configured safety radius) has solid ground and enough empty space.

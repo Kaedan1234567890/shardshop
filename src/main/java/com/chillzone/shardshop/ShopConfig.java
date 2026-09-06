@@ -12,7 +12,7 @@ import java.nio.file.Path;
 /** Economy values can be changed later without recompiling. */
 public final class ShopConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public int deathTeleportCost = 50;
+    public int deathTeleportCost = 25;
     public int safeTeleportRadius = 10;
     public int safeTeleportVerticalRadius = 4;
     public static ShopConfig load() {
