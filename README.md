@@ -68,3 +68,8 @@ Git does not delete old files merely because a newer ZIP does not contain them. 
 - Nether-roof deaths are accepted when the recorded spot (or a nearby spot within the configured safety radius) has solid ground and enough empty space.
 - End deaths use the same local safety rule and will not select unsupported air over the void.
 - If no safe location exists near the saved death, teleport is cancelled and no shards are charged.
+
+
+## Fix 6
+- Automatically migrates an existing saved death teleport cost of 50 or 20 Shards to 25 Shards on startup.
+- This fixes existing servers where `config/chill-zone-shard-shop.json` kept the old value after updating the mod.

@@ -25,6 +25,11 @@ public final class ShopConfig {
                     if (loaded != null) cfg = loaded;
                 }
             }
+            // Migrate older Shard Shop configs to the new 25-Shard death teleport price.
+            // Existing servers may still have 50 (old default) or 20 (brief Fix 4 default) saved on disk.
+            if (cfg.deathTeleportCost == 50 || cfg.deathTeleportCost == 20) {
+                cfg.deathTeleportCost = 25;
+            }
             cfg.deathTeleportCost = Math.max(0, cfg.deathTeleportCost);
             cfg.safeTeleportRadius = Math.max(0, Math.min(10, cfg.safeTeleportRadius));
             cfg.safeTeleportVerticalRadius = Math.max(0, Math.min(8, cfg.safeTeleportVerticalRadius));
