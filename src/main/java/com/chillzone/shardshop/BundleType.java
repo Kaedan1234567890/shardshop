@@ -7,14 +7,14 @@ import java.util.List;
 
 public enum BundleType {
     MINERS_FOCUS("Miner's Focus", "Fast underground mining.", 15 * 60, 30,
-        List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 15 * 60 * 20, 3), new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 60 * 20, 0)), null),
+        List.of(new MobEffectInstance(MobEffects.HASTE, 15 * 60 * 20, 3), new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 60 * 20, 0)), null),
     DEEP_DIVER("Deep Diver", "Underwater building and movement.", 15 * 60, 30,
         List.of(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 15 * 60 * 20, 0), new MobEffectInstance(MobEffects.CONDUIT_POWER, 15 * 60 * 20, 0), new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 60 * 20, 0)), null),
     FORTUNES_FAVOR("Fortune's Favor", "Luck V for exploration and loot.", 10 * 60, 35,
         List.of(new MobEffectInstance(MobEffects.LUCK, 10 * 60 * 20, 4)), null),
     SCHOLARS_BLESSING("Scholar's Blessing", "Earn 1.5x experience.", 20 * 60, 35, List.of(), PerkStore.Perk.SCHOLARS_BLESSING),
     BUILDERS_FOCUS("Builder's Focus", "Fast, mobile building support.", 15 * 60, 35,
-        List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 15 * 60 * 20, 1), new MobEffectInstance(MobEffects.JUMP, 15 * 60 * 20, 1), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 15 * 60 * 20, 0), new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 60 * 20, 0)), null),
+        List.of(new MobEffectInstance(MobEffects.HASTE, 15 * 60 * 20, 1), new MobEffectInstance(MobEffects.JUMP_BOOST, 15 * 60 * 20, 1), new MobEffectInstance(MobEffects.SPEED, 15 * 60 * 20, 0), new MobEffectInstance(MobEffects.NIGHT_VISION, 15 * 60 * 20, 0)), null),
     VOID_WALKER("Void Walker", "Safer End exploration.", 10 * 60, 25,
         List.of(new MobEffectInstance(MobEffects.SLOW_FALLING, 10 * 60 * 20, 0), new MobEffectInstance(MobEffects.NIGHT_VISION, 10 * 60 * 20, 0)), null),
     NETHER_WORKER("Nether Worker", "Temporary Nether work protection.", 15 * 60, 30,
