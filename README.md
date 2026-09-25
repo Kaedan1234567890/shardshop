@@ -39,7 +39,8 @@ Custom timed perks are persisted in `config/chill-zone-shard-shop-perks.json`.
 - Prospector computes only the positive difference between normal drops and the boosted Fortune loot result, avoiding a second full loot roll.
 - Shard currency remains the exact existing Chill Zone Homes balance through `ShardBridge`; no second currency exists.
 
-
-## 0.2.1 compile fix
-- Minecraft 26.2 official effect field names: HASTE, JUMP_BOOST, and SPEED.
-- No shop behavior, prices, saved deaths, shards, services, or player data were reset or changed by this compile-only patch.
+## 0.2.2 Minecraft 26.2 compile fix
+This package has the actual source edits applied in `BundleType.java`:
+- `MobEffects.DIG_SPEED` -> `MobEffects.HASTE`
+- `MobEffects.JUMP` -> `MobEffects.JUMP_BOOST`
+- `MobEffects.MOVEMENT_SPEED` -> `MobEffects.SPEED`
