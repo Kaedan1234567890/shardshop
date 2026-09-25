@@ -1,75 +1,40 @@
-# Chill Zone Shard Shop — 0.1.0-alpha-fix2
+# Chill Zone Shop 0.2.0-alpha-shop-expansion1
 
-Server-side Fabric mod for Minecraft 26.2.
+Replacement/upgrade source for the existing Chill Zone Shard Shop on Minecraft 26.2.
 
-## First-release design
+## Main command
+- `/shop` opens the new main GUI for every player.
+- `/shardshop` remains as a compatibility alias.
 
-`/shardshop` opens a regular 3-row chest GUI with a decorative glass border.
-The only category in this release is **Deaths**, represented by a Skeleton Skull
-in the exact centre of the menu.
+## Categories
+### Deaths
+- Existing rolling 28-death history is preserved.
+- Existing `config/chill-zone-shard-shop-deaths.json` is reused; no reset/migration deletes records.
+- Death teleport now costs 15 Shards. Old saved defaults of 20/25/50 are migrated to 15.
 
-Clicking **Deaths** opens a 6-row double chest containing the player's rolling
-history of up to 28 deaths. Each saved death is represented by a Skeleton Skull.
-Empty death positions remain empty and a skull appears automatically when a new
-death is recorded.
+### Effect Bundles
+- Miner's Focus: Haste IV + Night Vision, 15m, 30 Shards.
+- Deep Diver: Dolphin's Grace + Conduit Power + Night Vision, 15m, 30 Shards.
+- Fortune's Favor: Luck V, 10m, 35 Shards.
+- Scholar's Blessing: 1.5x XP, 20m, 35 Shards.
+- Builder's Focus: Haste II + Jump Boost II + Speed I + Night Vision, 15m, 35 Shards.
+- Void Walker: Slow Falling + Night Vision, 10m, 25 Shards.
+- Nether Worker: Fire Resistance + Night Vision, 15m, 30 Shards.
+- Prospector: +2 effective Fortune on block drops, capped at Fortune V, 10m, 50 Shards.
 
-Newest-to-oldest labels are:
-- Last Death
-- Death 2
-- Death 3
-- ...
-- Death 28
+Bundle purchases use a confirmation screen. Rebuying refreshes the defined effect/perk; it does not stack amplifiers.
+Custom timed perks are persisted in `config/chill-zone-shard-shop-perks.json`.
 
-When death 29 is recorded, the previous Death 28 ages out.
+### Server Services
+- Item Repair: read-only inventory preview; price scales from 5 to 150 Shards by missing durability.
+- Remove Curse: read-only inventory preview; removes Binding/Vanishing for 25 Shards per curse.
+- Item Rename: read-only item selection, then Java anvil text entry or Bedrock Floodgate/Cumulus form; 5 Shards.
+- XP Recovery: recovers up to 50% of XP from the most recent actual death, one claim per death, 25 Shards. It never raises the player above their recorded pre-death total.
 
-## Death teleport
-
-- Cost: 25 shards per use by default.
-- Uses the existing Chill Zone Homes shard balance; no second currency is made.
-- Exact death position is tried first.
-- If unsafe, the mod searches nearby only, up to 10 blocks horizontally by default.
-- If no safe destination is found nearby, the teleport is cancelled and no shards
-  are charged.
-- If charging succeeds but the teleport itself errors, the shards are refunded.
-- Using a death teleport does not delete the saved death record.
-
-## Persistence
-
-Death history is stored in:
-`config/chill-zone-shard-shop-deaths.json`
-
-Config is stored in:
-`config/chill-zone-shard-shop.json`
-
-Transactions are logged in:
-`config/chill-zone-shard-shop-transactions.log`
-
-## fix1
-
-Removed the unused spawner shop and its SpawnerFactory code. This also removes
- the Minecraft 26.2 `BLOCK_ENTITY_DATA` compile error from the original alpha.
-Changed the main shop to a regular chest with a centred Skeleton Skull for Deaths,
-and changed every saved death icon to a Skeleton Skull.
-
-## Fix2 clean-source note
-This release intentionally contains **no spawner shop code**. The only shop category is **Deaths**.
-
-If upgrading a GitHub repository that previously contained the alpha version, delete these obsolete files from the repository before building if they are still present:
-- `src/main/java/com/chillzone/shardshop/SpawnerFactory.java`
-- `src/main/java/com/chillzone/shardshop/ui/SpawnerMenu.java`
-
-Git does not delete old files merely because a newer ZIP does not contain them. A clean replacement of the repository contents avoids compiling obsolete spawner classes.
-
-
-## Fix 3 — dimension death teleport
-- Keeps the existing `/shardshop` GUI, death slots, skull layout, Last Death ordering, 25-shard price, and saved history unchanged.
-- Death skull lore now explicitly displays the saved death dimension (Overworld, The Nether, or The End).
-- Safe-location checks now load the destination chunk before validating it, allowing saved deaths in another dimension to be checked and teleported to correctly.
-- Nether-roof deaths are accepted when the recorded spot (or a nearby spot within the configured safety radius) has solid ground and enough empty space.
-- End deaths use the same local safety rule and will not select unsupported air over the void.
-- If no safe location exists near the saved death, teleport is cancelled and no shards are charged.
-
-
-## Fix 6
-- Automatically migrates an existing saved death teleport cost of 50 or 20 Shards to 25 Shards on startup.
-- This fixes existing servers where `config/chill-zone-shard-shop.json` kept the old value after updating the mod.
+## Safety / anti-abuse
+- GUI item copies are never transferable.
+- Repair/curse/rename revalidate the real inventory slot against an item fingerprint immediately before charging.
+- Charge happens only after validation; recoverable failures refund Shards.
+- XP Recovery is keyed to the latest death timestamp and persisted as claimed before awarding XP.
+- Prospector computes only the positive difference between normal drops and the boosted Fortune loot result, avoiding a second full loot roll.
+- Shard currency remains the exact existing Chill Zone Homes balance through `ShardBridge`; no second currency exists.

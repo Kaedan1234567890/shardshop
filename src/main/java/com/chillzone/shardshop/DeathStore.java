@@ -51,6 +51,21 @@ public final class DeathStore {
         return List.copyOf(data.getOrDefault(player, List.of()));
     }
 
+    public synchronized DeathRecord latest(UUID player) {
+        List<DeathRecord> list = data.get(player);
+        return list == null || list.isEmpty() ? null : list.get(0);
+    }
+
+    public synchronized boolean markLatestXpClaimed(UUID player, long expectedTimestamp) {
+        List<DeathRecord> list = data.get(player);
+        if (list == null || list.isEmpty()) return false;
+        DeathRecord first = list.get(0);
+        if (first.timestamp() != expectedTimestamp || first.xpRecoveryClaimed()) return false;
+        list.set(0, first.withXpRecoveryClaimed(true));
+        save();
+        return true;
+    }
+
     public synchronized void save() {
         try {
             Files.createDirectories(path.getParent());

@@ -9,12 +9,29 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-/** Economy values can be changed later without recompiling. */
+/** Economy values can be tuned later without recompiling. */
 public final class ShopConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    public int deathTeleportCost = 25;
+
+    public int deathTeleportCost = 15;
     public int safeTeleportRadius = 10;
     public int safeTeleportVerticalRadius = 4;
+
+    public int minersFocusCost = 30;
+    public int deepDiverCost = 30;
+    public int fortunesFavorCost = 35;
+    public int scholarsBlessingCost = 35;
+    public int buildersFocusCost = 35;
+    public int voidWalkerCost = 25;
+    public int netherWorkerCost = 30;
+    public int prospectorCost = 50;
+
+    public int renameCost = 5;
+    public int removeCurseCostPerCurse = 25;
+    public int xpRecoveryCost = 25;
+    public double xpRecoveryFraction = 0.50;
+    public int repairMaxCost = 150;
+
     public static ShopConfig load() {
         Path p = FabricLoader.getInstance().getConfigDir().resolve("chill-zone-shard-shop.json");
         ShopConfig cfg = new ShopConfig();
@@ -25,14 +42,15 @@ public final class ShopConfig {
                     if (loaded != null) cfg = loaded;
                 }
             }
-            // Migrate older Shard Shop configs to the new 25-Shard death teleport price.
-            // Existing servers may still have 50 (old default) or 20 (brief Fix 4 default) saved on disk.
-            if (cfg.deathTeleportCost == 50 || cfg.deathTeleportCost == 20) {
-                cfg.deathTeleportCost = 25;
+            // One-time migration of every historical default we used before the 15-Shard design.
+            if (cfg.deathTeleportCost == 50 || cfg.deathTeleportCost == 20 || cfg.deathTeleportCost == 25) {
+                cfg.deathTeleportCost = 15;
             }
             cfg.deathTeleportCost = Math.max(0, cfg.deathTeleportCost);
             cfg.safeTeleportRadius = Math.max(0, Math.min(10, cfg.safeTeleportRadius));
             cfg.safeTeleportVerticalRadius = Math.max(0, Math.min(8, cfg.safeTeleportVerticalRadius));
+            cfg.repairMaxCost = Math.max(1, Math.min(500, cfg.repairMaxCost));
+            cfg.xpRecoveryFraction = Math.max(0.0, Math.min(1.0, cfg.xpRecoveryFraction));
             Files.createDirectories(p.getParent());
             try (Writer w = Files.newBufferedWriter(p)) { GSON.toJson(cfg, w); }
         } catch (Exception e) {
