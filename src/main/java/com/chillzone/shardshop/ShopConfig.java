@@ -21,6 +21,7 @@ public final class ShopConfig {
     public int deepDiverCost = 30;
     public int fortunesFavorCost = 35;
     public int scholarsBlessingCost = 35;
+    public int warriorsFuryCost = 65;
     public int buildersFocusCost = 35;
     public int voidWalkerCost = 25;
     public int netherWorkerCost = 30;

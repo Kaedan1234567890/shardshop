@@ -15,8 +15,9 @@ Replacement/upgrade source for the existing Chill Zone Shard Shop on Minecraft 2
 ### Effect Bundles
 - Miner's Focus: Haste IV + Night Vision, 15m, 30 Shards.
 - Deep Diver: Dolphin's Grace + Conduit Power + Night Vision, 15m, 30 Shards.
-- Fortune's Favor: Luck V, 10m, 35 Shards.
+- Fortune's Favor: Luck V, 5m, 35 Shards. Vanilla Luck mainly improves fishing loot odds.
 - Scholar's Blessing: 1.5x XP, 20m, 35 Shards.
+- Warrior's Fury: Strength III + Speed II + Fire Resistance, 3m, 65 Shards.
 - Builder's Focus: Haste II + Jump Boost II + Speed I + Night Vision, 15m, 35 Shards.
 - Void Walker: Slow Falling + Night Vision, 10m, 25 Shards.
 - Nether Worker: Fire Resistance + Night Vision, 15m, 30 Shards.

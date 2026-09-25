@@ -50,7 +50,18 @@ public final class InventoryServiceMenu extends ChestMenu {
                 int cost=RepairService.cost(real);
                 if(cost<=0){player.sendSystemMessage(Component.literal("That item does not need repairing.").withStyle(ChatFormatting.YELLOW)); return;}
                 ItemStack info=real.copy();
-                ConfirmMenu.open(player,"Confirm Repair",info,()->RepairService.repair(player,slotId,fp),()->open(player,service));
+                ConfirmMenu.open(
+                    player,
+                    "Confirm Repair",
+                    info,
+                    new Component[]{
+                        Component.literal("Repair this item to full durability.").withStyle(ChatFormatting.GRAY),
+                        Component.literal("Cost: " + cost + " Shards").withStyle(ChatFormatting.YELLOW),
+                        Component.literal("Click to confirm purchase.").withStyle(ChatFormatting.GREEN)
+                    },
+                    ()->RepairService.repair(player,slotId,fp),
+                    ()->open(player,service)
+                );
             }
             case CURSE -> {
                 int count=CurseService.curseCount(real);

@@ -34,20 +34,32 @@ public final class EffectBundleMenu extends ChestMenu {
     private void refresh() {
         ItemStack filler = Ui.button(Ui.item("gray_stained_glass_pane"), Component.empty());
         for (int i = 0; i < 27; i++) getContainer().setItem(i, filler.copy());
-        int[] menuSlots = {9,10,11,12,14,15,16,17};
-        String[] icons = {"diamond_pickaxe","heart_of_the_sea","rabbit_foot","experience_bottle","scaffolding","ender_pearl","blaze_powder","emerald_ore"};
+        int[] menuSlots = {9,10,11,12,13,14,15,16,17};
+        String[] icons = {"diamond_pickaxe","heart_of_the_sea","rabbit_foot","experience_bottle","netherite_sword","scaffolding","ender_pearl","blaze_powder","emerald_ore"};
         BundleType[] types = BundleType.values();
         for (int i = 0; i < types.length; i++) {
             BundleType b = types[i];
             int slot = menuSlots[i];
             slots.put(slot, b);
-            getContainer().setItem(slot, Ui.button(Ui.item(icons[i]),
-                Ui.name(b.display, ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD),
-                Ui.lore(b.description),
-                Ui.lore(effectText(b)),
-                Ui.lore("Duration: " + (b.seconds / 60) + " minutes"),
-                Ui.lore("Cost: " + b.cost() + " Shards"),
-                Ui.lore("Click to review purchase.")));
+            String detail = detailText(b);
+            if (detail == null) {
+                getContainer().setItem(slot, Ui.button(Ui.item(icons[i]),
+                    Ui.name(b.display, b == BundleType.WARRIORS_FURY ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD),
+                    Ui.lore(b.description),
+                    Ui.lore(effectText(b)),
+                    Ui.lore("Duration: " + (b.seconds / 60) + " minutes"),
+                    Ui.lore("Cost: " + b.cost() + " Shards"),
+                    Ui.lore("Click to review purchase.")));
+            } else {
+                getContainer().setItem(slot, Ui.button(Ui.item(icons[i]),
+                    Ui.name(b.display, b == BundleType.WARRIORS_FURY ? ChatFormatting.RED : ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD),
+                    Ui.lore(b.description),
+                    Ui.lore(effectText(b)),
+                    Ui.lore(detail),
+                    Ui.lore("Duration: " + (b.seconds / 60) + " minutes"),
+                    Ui.lore("Cost: " + b.cost() + " Shards"),
+                    Ui.lore("Click to review purchase.")));
+            }
         }
         getContainer().setItem(22, Ui.button(Ui.item("arrow"), Ui.name("Back", ChatFormatting.YELLOW)));
     }
@@ -58,10 +70,19 @@ public final class EffectBundleMenu extends ChestMenu {
             case DEEP_DIVER -> "Dolphin's Grace + Conduit Power + Night Vision";
             case FORTUNES_FAVOR -> "Luck V";
             case SCHOLARS_BLESSING -> "1.5x XP earned";
+            case WARRIORS_FURY -> "Strength III + Speed II + Fire Resistance";
             case BUILDERS_FOCUS -> "Haste II + Jump Boost II + Speed I + Night Vision";
             case VOID_WALKER -> "Slow Falling + Night Vision";
             case NETHER_WORKER -> "Fire Resistance + Night Vision";
             case PROSPECTOR -> "+2 effective Fortune, capped at Fortune V";
+        };
+    }
+
+    private static String detailText(BundleType b) {
+        return switch (b) {
+            case FORTUNES_FAVOR -> "Vanilla Luck improves fishing treasure odds; it does not boost enchanting or Fortune.";
+            case WARRIORS_FURY -> "High-power combat bundle intended for short PvP fights.";
+            default -> null;
         };
     }
 
