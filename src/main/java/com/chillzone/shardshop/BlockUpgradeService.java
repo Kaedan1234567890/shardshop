@@ -42,7 +42,7 @@ public final class BlockUpgradeService {
                 && toolPath.endsWith("_axe") && originalState.is(BlockTags.LOGS)) {
                 Set<BlockPos> chopped = breakConnected(sp, origin, originalState,
                     ChillZoneShardShop.config().treeChopperMaxLogs, true);
-                accelerateLeafDecay(sp.serverLevel(), chopped);
+                accelerateLeafDecay((ServerLevel) sp.level(), chopped);
             }
         });
     }
