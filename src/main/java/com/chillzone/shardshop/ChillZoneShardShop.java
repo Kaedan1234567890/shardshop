@@ -26,19 +26,22 @@ public final class ChillZoneShardShop implements ModInitializer {
     private static DeathStore deaths;
     private static ShopConfig config;
     private static PerkStore perks;
+    private static UpgradeStore upgrades;
     private static Path transactionLog;
     private static final Map<UUID,Integer> PRE_DEATH_XP=new ConcurrentHashMap<>();
 
     public static DeathStore deaths(){return deaths;}
     public static ShopConfig config(){return config;}
     public static PerkStore perks(){return perks;}
+    public static UpgradeStore upgrades(){return upgrades;}
     public static boolean ready(){return perks!=null;}
 
     @Override public void onInitialize(){
-        config=ShopConfig.load(); deaths=DeathStore.load(); perks=PerkStore.load();
+        config=ShopConfig.load(); deaths=DeathStore.load(); perks=PerkStore.load(); upgrades=UpgradeStore.load();
         transactionLog=net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve("chill-zone-shard-shop-transactions.log");
         BedrockInputManager.init();
         ProspectorService.init();
+        BlockUpgradeService.init();
 
         CommandRegistrationCallback.EVENT.register((dispatcher,registryAccess,environment)->{
             dispatcher.register(Commands.literal("shop").executes(ctx->{ServerPlayer p=ctx.getSource().getPlayerOrException();MainShopMenu.open(p);return 1;}));
@@ -57,7 +60,7 @@ public final class ChillZoneShardShop implements ModInitializer {
             DeathRecord death=new DeathRecord(player.level().dimension().identifier().toString(),player.getX(),player.getY(),player.getZ(),player.getYRot(),player.getXRot(),System.currentTimeMillis(),cause,preXp,false);
             deaths.add(player.getUUID(),death);
         });
-        ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();});
+        ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();upgrades.save();});
         LOGGER.info("Chill Zone Shop initialized — /shop is ready.");
     }
 

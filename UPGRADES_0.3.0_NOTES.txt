@@ -1,0 +1,42 @@
+Chill Zone Shop / Shards 0.3.0-alpha-mc26.3-upgrades
+
+Minecraft 26.3 migration + Upgrades category.
+
+UNCHANGED:
+- Deaths
+- Effect Bundles
+- Server Services
+- Existing Shards bridge/economy behavior
+
+NEW MAIN SHOP CATEGORY:
+- Upgrades
+
+PERMANENT UPGRADES:
+- Vein Miner: 750 Shards by default
+- Tree Chopper: 500 Shards by default
+- Players may own both.
+- Purchase persists by UUID.
+- Purchase enables the upgrade immediately.
+- Clicking an owned upgrade opens a settings GUI.
+- Green glass: turn ON.
+- Red glass: turn OFF.
+- On/off state persists across restarts.
+
+BEHAVIOR:
+- Vein Miner activates only with a pickaxe and connected blocks of the same ore type / Ancient Debris.
+- Default safety cap: 64 blocks per vein.
+- Tree Chopper activates only with an axe and connected logs of the same type.
+- Leaves are not force-broken; normal leaf decay can occur.
+- Default safety cap: 128 logs.
+- Extra blocks are broken through the player's normal server-side game mode so normal tool drops, enchantments and durability rules are used.
+
+CONFIG:
+- veinMinerUnlockCost
+- treeChopperUnlockCost
+- veinMinerMaxBlocks
+- treeChopperMaxLogs
+
+BUILD FIX:
+- Uses Minecraft 26.3 / Fabric Loader 0.19.5.
+- Uses Fabric API 0.165.0+26.3.
+- Uses Loom 1.17.21 with Gradle 9.6.0 to avoid the prototype Loom/Gradle variant-resolution failure seen in GitHub Actions.
