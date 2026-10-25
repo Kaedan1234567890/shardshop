@@ -1,0 +1,19 @@
+Chill Zone Shop/Shards 0.3.2-alpha-mc26.3-mining-polish
+
+Tree Chopper polish:
+- Tree Chopper now searches the full 3x3x3 neighborhood around each log, so sideways and diagonal branches are included.
+- Still only chains through the same log type to reduce accidental chopping of a neighboring tree.
+- After chopping, nearby non-persistent leaves are cleaned up rapidly.
+- Leaves that remain connected to another nearby log are preserved.
+- Fast cleanup uses normal block drops so saplings/sticks/apples can still drop.
+
+Vein Miner polish:
+- Vein Miner now searches the full 3x3x3 neighborhood, including diagonal ore blocks.
+- Stone and deepslate variants of the same ore are treated as one vein.
+- Existing max-block cap is preserved.
+
+Shop behavior unchanged:
+- Vein Miner unlock cost: 1 Shard.
+- Tree Chopper unlock cost: 1 Shard.
+- Both upgrades start OFF and must be manually enabled after unlock.
+- All other shop categories/services/effects remain unchanged.
