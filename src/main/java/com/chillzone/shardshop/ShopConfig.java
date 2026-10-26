@@ -27,6 +27,10 @@ public final class ShopConfig {
     public int netherWorkerCost = 30;
     public int prospectorCost = 50;
 
+    // Legacy and current upgrade UIs use these configuration names.
+    public int veinMinerUnlockCost = 1;
+    public int treeChopperUnlockCost = 1;
+
     public int renameCost = 5;
     public int removeCurseCostPerCurse = 25;
     public int xpRecoveryCost = 25;
@@ -51,6 +55,8 @@ public final class ShopConfig {
             cfg.safeTeleportRadius = Math.max(0, Math.min(10, cfg.safeTeleportRadius));
             cfg.safeTeleportVerticalRadius = Math.max(0, Math.min(8, cfg.safeTeleportVerticalRadius));
             cfg.repairMaxCost = Math.max(1, Math.min(500, cfg.repairMaxCost));
+            cfg.veinMinerUnlockCost = Math.max(1, cfg.veinMinerUnlockCost);
+            cfg.treeChopperUnlockCost = Math.max(1, cfg.treeChopperUnlockCost);
             cfg.xpRecoveryFraction = Math.max(0.0, Math.min(1.0, cfg.xpRecoveryFraction));
             Files.createDirectories(p.getParent());
             try (Writer w = Files.newBufferedWriter(p)) { GSON.toJson(cfg, w); }

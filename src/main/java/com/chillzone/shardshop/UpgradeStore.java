@@ -23,5 +23,12 @@ public final class UpgradeStore {
     public synchronized boolean enabled(UUID id,Upgrade u){Entry e=entry(id,u);return e.purchased&&e.enabled;}
     public synchronized boolean purchase(UUID id,Upgrade u){Entry e=entry(id,u);if(e.purchased)return false;e.purchased=true;e.enabled=true;save();return true;}
     public synchronized void toggle(UUID id,Upgrade u){Entry e=entry(id,u);if(e.purchased){e.enabled=!e.enabled;save();}}
+    /** Compatibility with the original Shop upgrade toggle screens retained by existing repositories. */
+    public synchronized void setEnabled(UUID id, Upgrade u, boolean enabled) {
+        Entry e = entry(id, u);
+        if (!e.purchased) return; // Never activate an upgrade that was not purchased.
+        if (e.enabled != enabled) { e.enabled = enabled; save(); }
+    }
+
     public synchronized void save(){try{Files.createDirectories(path.getParent());Path tmp=path.resolveSibling(path.getFileName()+".tmp");try(Writer w=Files.newBufferedWriter(tmp)){GSON.toJson(data,TYPE,w);}try{Files.move(tmp,path,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);}catch(AtomicMoveNotSupportedException e){Files.move(tmp,path,StandardCopyOption.REPLACE_EXISTING);}}catch(Exception e){ChillZoneShardShop.LOGGER.error("Failed saving upgrades",e);}}
 }
