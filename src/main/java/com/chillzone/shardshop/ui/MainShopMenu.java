@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 
-/** Main /shop menu: Deaths, Effect Bundles, Server Services. */
+/** Main /shop menu: Deaths, Effect Bundles, Server Services, and Upgrades. */
 public final class MainShopMenu extends ChestMenu {
     private static final int ROWS=3, DEATHS=10, BUNDLES=12, SERVICES=14, UPGRADES=16;
     private final ServerPlayer player;

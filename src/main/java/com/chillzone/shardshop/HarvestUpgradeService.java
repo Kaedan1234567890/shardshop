@@ -24,7 +24,11 @@ public final class HarvestUpgradeService {
             Iterator<Decay> it=LEAVES.iterator();int processed=0;
             while(it.hasNext() && processed<48){Decay d=it.next();if(d.due>tick)continue;it.remove();processed++;
                 BlockState state=d.level.getBlockState(d.pos);
-                if(state.is(BlockTags.LEAVES))d.level.destroyBlock(d.pos,false);
+                if(state.is(BlockTags.LEAVES) && state.hasProperty(net.minecraft.world.level.block.LeavesBlock.PERSISTENT)
+                    && !state.getValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT)
+                    && state.hasProperty(net.minecraft.world.level.block.LeavesBlock.DISTANCE)
+                    && state.getValue(net.minecraft.world.level.block.LeavesBlock.DISTANCE)>=7)
+                    d.level.destroyBlock(d.pos,false);
             }
         });
         PlayerBlockBreakEvents.AFTER.register((world,player,pos,state,blockEntity)->{
