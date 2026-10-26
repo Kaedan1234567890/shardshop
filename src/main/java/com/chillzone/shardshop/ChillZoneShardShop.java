@@ -2,6 +2,7 @@ package com.chillzone.shardshop;
 
 import com.chillzone.shardshop.ui.BedrockInputManager;
 import com.chillzone.shardshop.ui.MainShopMenu;
+import com.chillzone.shardshop.ui.UpgradeMenu;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -47,7 +48,8 @@ public final class ChillZoneShardShop implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher,registryAccess,environment)->{
             dispatcher.register(Commands.literal("shop")
                 .executes(ctx->{ServerPlayer p=ctx.getSource().getPlayerOrException();MainShopMenu.open(p);return 1;})
-                .then(Commands.literal("version").executes(ctx->{ctx.getSource().sendSuccess(()->Component.literal("Chill Zone Shard Shop 0.2.9 | Deaths + Effect Bundles + Server Services + Upgrades (Vein Miner / Tree Chopper)"),false);return 1;})));
+                .then(Commands.literal("version").executes(ctx->{ctx.getSource().sendSuccess(()->Component.literal("Chill Zone Shard Shop 0.3.0 | Deaths + Effect Bundles + Server Services + Upgrades (Vein Miner / Tree Chopper)"),false);return 1;}))
+                .then(Commands.literal("upgrades").executes(ctx->{ServerPlayer p=ctx.getSource().getPlayerOrException();UpgradeMenu.open(p);return 1;})));
             // Keep the old command as a compatibility alias so bookmarks/macros do not break.
             dispatcher.register(Commands.literal("shardshop").executes(ctx->{ServerPlayer p=ctx.getSource().getPlayerOrException();MainShopMenu.open(p);return 1;}));
         });
@@ -64,7 +66,7 @@ public final class ChillZoneShardShop implements ModInitializer {
             deaths.add(player.getUUID(),death);
         });
         ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();upgrades.save();});
-        LOGGER.info("Chill Zone Shard Shop 0.2.9 initialized — /shop (Deaths, Effect Bundles, Services, Upgrades) is ready.");
+        LOGGER.info("Chill Zone Shard Shop 0.3.0 initialized — /shop (Deaths, Effect Bundles, Services, Upgrades) is ready.");
     }
 
     public static synchronized void logTransaction(ServerPlayer player,String action,int cost,String details){

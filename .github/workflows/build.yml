@@ -1,10 +1,7 @@
-name: Build
-
+name: Build Shard Shop 0.3.0
 on:
   push:
-    branches: [ "main" ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,12 +12,13 @@ jobs:
           distribution: temurin
           java-version: '25'
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9.6.0'
-      - name: Build mod
-        run: gradle build --stacktrace --info --console=plain
+      - name: Compile clean Shop 0.3.0
+        run: |
+          if [ -f ./gradlew ]; then chmod +x ./gradlew; ./gradlew clean build --no-daemon; else gradle clean build --no-daemon; fi
+      - name: Verify actual release exists
+        run: test -f build/libs/chill-zone-shop-0.3.0.jar
       - uses: actions/upload-artifact@v4
-        if: success()
         with:
-          name: chill-zone-shard-shop
-          path: build/libs/*.jar
+          name: chill-zone-shop-0.3.0
+          path: build/libs/chill-zone-shop-0.3.0.jar
+          if-no-files-found: error
