@@ -30,6 +30,8 @@ public final class ShopConfig {
     // Legacy and current upgrade UIs use these configuration names.
     public int veinMinerUnlockCost = 1;
     public int treeChopperUnlockCost = 1;
+    public int veinMinerMaxBlocks = 32;
+    public int treeChopperMaxBlocks = 192;
 
     public int renameCost = 5;
     public int removeCurseCostPerCurse = 25;
@@ -57,6 +59,8 @@ public final class ShopConfig {
             cfg.repairMaxCost = Math.max(1, Math.min(500, cfg.repairMaxCost));
             cfg.veinMinerUnlockCost = Math.max(1, cfg.veinMinerUnlockCost);
             cfg.treeChopperUnlockCost = Math.max(1, cfg.treeChopperUnlockCost);
+            cfg.veinMinerMaxBlocks = Math.max(1, Math.min(128, cfg.veinMinerMaxBlocks));
+            cfg.treeChopperMaxBlocks = Math.max(1, Math.min(512, cfg.treeChopperMaxBlocks));
             cfg.xpRecoveryFraction = Math.max(0.0, Math.min(1.0, cfg.xpRecoveryFraction));
             Files.createDirectories(p.getParent());
             try (Writer w = Files.newBufferedWriter(p)) { GSON.toJson(cfg, w); }

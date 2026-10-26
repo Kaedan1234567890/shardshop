@@ -58,3 +58,8 @@ sourceSets {
         }
     }
 }
+
+// Older repository uploads may retain these unused, outdated upgrade implementations.
+// The 0.2.6 authoritative block harvesting logic is HarvestUpgradeService.
+sourceSets.main.java.exclude 'com/chillzone/shardshop/UpgradeService.java'
+sourceSets.main.java.exclude 'com/chillzone/shardshop/BlockUpgradeService.java'

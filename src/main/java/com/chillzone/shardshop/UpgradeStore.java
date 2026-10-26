@@ -22,6 +22,14 @@ public final class UpgradeStore {
     public synchronized boolean purchased(UUID id,Upgrade u){return entry(id,u).purchased;}
     public synchronized boolean enabled(UUID id,Upgrade u){Entry e=entry(id,u);return e.purchased&&e.enabled;}
     public synchronized boolean purchase(UUID id,Upgrade u){Entry e=entry(id,u);if(e.purchased)return false;e.purchased=true;e.enabled=true;save();return true;}
+    /** Legacy UpgradeService compatibility; identical to purchased(). */
+    public synchronized boolean unlocked(UUID id, Upgrade upgrade) {
+        return purchased(id, upgrade);
+    }
+    /** Legacy UpgradeService compatibility; permanent unlock, enabled by default. */
+    public synchronized void unlock(UUID id, Upgrade upgrade) {
+        purchase(id, upgrade);
+    }
     public synchronized void toggle(UUID id,Upgrade u){Entry e=entry(id,u);if(e.purchased){e.enabled=!e.enabled;save();}}
     /** Compatibility with the original Shop upgrade toggle screens retained by existing repositories. */
     public synchronized void setEnabled(UUID id, Upgrade u, boolean enabled) {
