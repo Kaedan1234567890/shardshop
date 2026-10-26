@@ -1,8 +1,0 @@
-Chill Zone Shop/Shards 0.3.3 - Minecraft 26.3 ServerLevel compile fix
-
-- Fixes BlockUpgradeService compile failure caused by ServerPlayer#serverLevel() no longer being available in the 26.3 mappings.
-- Tree Chopper now obtains its ServerLevel through the inherited player level() accessor and casts it to ServerLevel for leaf cleanup.
-- No gameplay behavior changed from 0.3.2.
-- Tree Chopper diagonal/sideways log traversal and fast natural-leaf cleanup remain.
-- Vein Miner diagonal vein traversal remains.
-- Both upgrades still cost 1 Shard and start OFF.

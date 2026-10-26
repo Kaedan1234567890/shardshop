@@ -1,0 +1,8 @@
+Shop 0.3.2 SOURCE AUDIT (not a successful Minecraft runtime test)
+- Only /shop command registered by this mod (no /shop subcommands or /shardshop alias).
+- /shop executes MainShopMenu.open.
+- MainShopMenu has Deaths slot 11, Bundles slot 13, Services slot 15, Upgrades slot 17.
+- Click Upgrades calls UpgradeMenu.open(player).
+- UpgradeMenu has Vein Miner and Tree Chopper with permanent one-Shard prices by default.
+- When installed JAR differs, another mod or outdated JAR may own /shop.
+- Compile and on-server tests NOT performed here.
