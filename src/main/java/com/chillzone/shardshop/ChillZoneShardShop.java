@@ -41,7 +41,7 @@ public final class ChillZoneShardShop implements ModInitializer {
         transactionLog=net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve("chill-zone-shard-shop-transactions.log");
         BedrockInputManager.init();
         ProspectorService.init();
-        BlockUpgradeService.init();
+        HarvestUpgradeService.init();
 
         CommandRegistrationCallback.EVENT.register((dispatcher,registryAccess,environment)->{
             dispatcher.register(Commands.literal("shop").executes(ctx->{ServerPlayer p=ctx.getSource().getPlayerOrException();MainShopMenu.open(p);return 1;}));

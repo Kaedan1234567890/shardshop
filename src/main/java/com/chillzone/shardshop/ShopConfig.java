@@ -33,11 +33,6 @@ public final class ShopConfig {
     public double xpRecoveryFraction = 0.50;
     public int repairMaxCost = 150;
 
-    public int veinMinerUnlockCost = 1;
-    public int treeChopperUnlockCost = 1;
-    public int veinMinerMaxBlocks = 64;
-    public int treeChopperMaxLogs = 128;
-
     public static ShopConfig load() {
         Path p = FabricLoader.getInstance().getConfigDir().resolve("chill-zone-shard-shop.json");
         ShopConfig cfg = new ShopConfig();
@@ -57,13 +52,6 @@ public final class ShopConfig {
             cfg.safeTeleportVerticalRadius = Math.max(0, Math.min(8, cfg.safeTeleportVerticalRadius));
             cfg.repairMaxCost = Math.max(1, Math.min(500, cfg.repairMaxCost));
             cfg.xpRecoveryFraction = Math.max(0.0, Math.min(1.0, cfg.xpRecoveryFraction));
-            // Migrate the first 0.3.0 prototype prices to the intended 1-Shard opt-in unlocks.
-            if (cfg.veinMinerUnlockCost == 750) cfg.veinMinerUnlockCost = 1;
-            if (cfg.treeChopperUnlockCost == 500) cfg.treeChopperUnlockCost = 1;
-            cfg.veinMinerUnlockCost = Math.max(0, cfg.veinMinerUnlockCost);
-            cfg.treeChopperUnlockCost = Math.max(0, cfg.treeChopperUnlockCost);
-            cfg.veinMinerMaxBlocks = Math.max(2, Math.min(256, cfg.veinMinerMaxBlocks));
-            cfg.treeChopperMaxLogs = Math.max(2, Math.min(512, cfg.treeChopperMaxLogs));
             Files.createDirectories(p.getParent());
             try (Writer w = Files.newBufferedWriter(p)) { GSON.toJson(cfg, w); }
         } catch (Exception e) {

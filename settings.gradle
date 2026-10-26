@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
-        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = "https://maven.fabricmc.net/" }
         gradlePluginPortal()
         mavenCentral()
     }
 }
-rootProject.name = 'chill-zone-shard-shop'
+rootProject.name = "chill-zone-homes"
