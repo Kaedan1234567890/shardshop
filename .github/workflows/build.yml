@@ -1,4 +1,4 @@
-name: Build Shard Shop 0.3.3 (verified 4 buttons)
+name: Build Shard Shop 0.3.4 (verified 4 buttons)
 on:
   push:
   workflow_dispatch:
@@ -16,10 +16,10 @@ jobs:
         run: |
           if [ -f ./gradlew ]; then chmod +x ./gradlew; ./gradlew clean build --no-daemon; else gradle clean build --no-daemon; fi
       - name: Verify compiled JAR actually has 4-button menu
-        run: python3 scripts/verify_shop_jar.py build/libs/chill-zone-shop-0.3.3.jar
+        run: python3 scripts/verify_shop_jar.py build/libs/chill-zone-shop-0.3.4.jar
       - name: Upload verified JAR
         uses: actions/upload-artifact@v4
         with:
-          name: chill-zone-shop-0.3.3-verified
-          path: build/libs/chill-zone-shop-0.3.3.jar
+          name: chill-zone-shop-0.3.4-verified
+          path: build/libs/chill-zone-shop-0.3.4.jar
           if-no-files-found: error

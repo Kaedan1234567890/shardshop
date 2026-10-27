@@ -62,7 +62,7 @@ public final class ChillZoneShardShop implements ModInitializer {
             deaths.add(player.getUUID(),death);
         });
         ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();upgrades.save();});
-        LOGGER.info("Chill Zone Shard Shop 0.3.3 initialized — /shop (Deaths, Effect Bundles, Services, Upgrades) is ready.");
+        LOGGER.info("Chill Zone Shard Shop 0.3.4 initialized — /shop (Deaths, Effect Bundles, Services, Upgrades) is ready.");
     }
 
     public static synchronized void logTransaction(ServerPlayer player,String action,int cost,String details){

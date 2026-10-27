@@ -14,10 +14,10 @@ with zipfile.ZipFile(jar) as z:
     main=z.read(main_name)
     entry=z.read(entry_name)
     metadata=z.read('fabric.mod.json').decode('utf-8')
-    for text in (b'Chill Zone \xe2\x80\x94 Shop 0.3.3',b'netherite_upgrade_smithing_template',b'Upgrades',b'UpgradeMenu',b'Deaths',b'Effect Bundles',b'Server Services'):
+    for text in (b'Chill Zone \xe2\x80\x94 Shop 0.3.4',b'netherite_upgrade_smithing_template',b'Upgrades',b'UpgradeMenu',b'Deaths',b'Effect Bundles',b'Server Services'):
         if text not in main: raise SystemExit(f"ERROR: main menu missing compiled constant: {text!r}")
     if b'shop' not in entry or b'MainShopMenu' not in entry: raise SystemExit('ERROR: /shop registration missing')
     # This source registers only one command. Full deployment check still requires server run.
-    if '"version": "0.3.3"' not in metadata and '"version":"0.3.3"' not in metadata:
-        raise SystemExit('ERROR: fabric.mod.json does not identify 0.3.3')
-print('PASS: compiled JAR has /shop entry class, 0.3.3 GUI, all 4 labels, upgrade icon and submenu class.')
+    if '"version": "0.3.4"' not in metadata and '"version":"0.3.4"' not in metadata:
+        raise SystemExit('ERROR: fabric.mod.json does not identify 0.3.4')
+print('PASS: compiled JAR has /shop entry class, 0.3.4 GUI, all 4 labels, upgrade icon and submenu class.')

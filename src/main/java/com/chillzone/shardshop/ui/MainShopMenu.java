@@ -20,7 +20,7 @@ public final class MainShopMenu extends ChestMenu {
     private MainShopMenu(int id, Inventory inv, ServerPlayer player){
         super(MenuType.GENERIC_9x3,id,inv,new SimpleContainer(ROWS*9),ROWS);this.player=player;refresh();
     }
-    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop 0.3.3")));}
+    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop 0.3.4")));}
     private void refresh(){
         ItemStack filler=Ui.button(Ui.item("gray_stained_glass_pane"),Component.empty());
         for(int i=0;i<27;i++)getContainer().setItem(i,filler.copy());
