@@ -59,7 +59,7 @@ public final class ChillZoneShardShop implements ModInitializer {
             deaths.add(player.getUUID(),death);
         });
         ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();});
-        LOGGER.info("Chill Zone Shard Shop 0.3.5 started: main /shop has four categories, Upgrades is a placeholder.");
+        LOGGER.info("Chill Zone Shard Shop 0.3.6 LOADED - /shop FOUR icons in slots 10,12,14,16. If only 3 icons show, a different JAR is running.");
     }
 
     public static synchronized void logTransaction(ServerPlayer player,String action,int cost,String details){

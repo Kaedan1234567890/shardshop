@@ -1,4 +1,4 @@
-name: Build Shard Shop 0.3.5
+name: Build Shard Shop 0.3.6
 on:
   push:
   workflow_dispatch:
@@ -16,10 +16,10 @@ jobs:
         run: |
           if [ -f ./gradlew ]; then chmod +x ./gradlew; ./gradlew clean build --no-daemon; else gradle clean build --no-daemon; fi
       - name: Verify four-category compiled menu
-        run: python3 scripts/verify_shop_jar.py build/libs/chill-zone-shop-0.3.5.jar
+        run: python3 scripts/verify_shop_jar.py build/libs/chill-zone-shop-0.3.6.jar
       - name: Upload Shop JAR
         uses: actions/upload-artifact@v4
         with:
-          name: chill-zone-shop-0.3.5
-          path: build/libs/chill-zone-shop-0.3.5.jar
+          name: chill-zone-shop-0.3.6
+          path: build/libs/chill-zone-shop-0.3.6.jar
           if-no-files-found: error

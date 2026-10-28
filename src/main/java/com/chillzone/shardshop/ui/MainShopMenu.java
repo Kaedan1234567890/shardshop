@@ -14,13 +14,13 @@ import net.minecraft.world.item.ItemStack;
 
 /** Main /shop menu: Deaths, Effect Bundles, Server Services, and Upgrades. */
 public final class MainShopMenu extends ChestMenu {
-    // Preserve the original three slots shown in the existing Shop; add Upgrades at far right.
-    private static final int ROWS=3, DEATHS=11, BUNDLES=13, SERVICES=15, UPGRADES=17;
+    // Use four evenly spaced middle-row slots: columns 2, 4, 6, and 8.
+    private static final int ROWS=3, DEATHS=10, BUNDLES=12, SERVICES=14, UPGRADES=16;
     private final ServerPlayer player;
     private MainShopMenu(int id, Inventory inv, ServerPlayer player){
         super(MenuType.GENERIC_9x3,id,inv,new SimpleContainer(ROWS*9),ROWS);this.player=player;refresh();
     }
-    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop 0.3.5")));}
+    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop FOUR 0.3.6")));}
     private void refresh(){
         ItemStack filler=Ui.button(Ui.item("gray_stained_glass_pane"),Component.empty());
         for(int i=0;i<27;i++)getContainer().setItem(i,filler.copy());
