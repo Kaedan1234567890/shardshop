@@ -20,16 +20,16 @@ public final class MainShopMenu extends ChestMenu {
     private MainShopMenu(int id, Inventory inv, ServerPlayer player){
         super(MenuType.GENERIC_9x3,id,inv,new SimpleContainer(ROWS*9),ROWS);this.player=player;refresh();
     }
-    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop 0.3.4")));}
+    public static void open(ServerPlayer player){player.openMenu(new SimpleMenuProvider((id,inv,p)->new MainShopMenu(id,inv,player),Component.literal("Chill Zone — Shop 0.3.5")));}
     private void refresh(){
         ItemStack filler=Ui.button(Ui.item("gray_stained_glass_pane"),Component.empty());
         for(int i=0;i<27;i++)getContainer().setItem(i,filler.copy());
         getContainer().setItem(DEATHS,Ui.button(Ui.item("skeleton_skull"),Ui.name("Deaths",ChatFormatting.AQUA,ChatFormatting.BOLD),Ui.lore("View your recent deaths."),Ui.lore("Return to a saved death for 15 Shards.")));
         getContainer().setItem(BUNDLES,Ui.button(Ui.item("bundle"),Ui.name("Effect Bundles",ChatFormatting.LIGHT_PURPLE,ChatFormatting.BOLD),Ui.lore("Temporary themed perks and effects."),Ui.lore("Click to browse bundles.")));
-        getContainer().setItem(UPGRADES,Ui.button(Ui.item("netherite_upgrade_smithing_template"),Ui.name("Upgrades",ChatFormatting.GREEN,ChatFormatting.BOLD),Ui.lore("Vein Miner and Tree Chopper"),Ui.lore("Buy for 1 Shard each, then switch ON/OFF.")));
+        getContainer().setItem(UPGRADES,Ui.button(Ui.item("netherite_upgrade_smithing_template"),Ui.name("Upgrades",ChatFormatting.GREEN,ChatFormatting.BOLD),Ui.lore("Upgrade switches will be added later"),Ui.lore("Click to open the placeholder menu.")));
         getContainer().setItem(SERVICES,Ui.button(Ui.item("anvil"),Ui.name("Server Services",ChatFormatting.YELLOW,ChatFormatting.BOLD),Ui.lore("Repair, remove curses, rename items, or recover XP.")));
     }
-    @Override public void clicked(int slotId,int button,ContainerInput input,Player clicker){if(slotId==DEATHS)DeathMenu.open(player);else if(slotId==BUNDLES)EffectBundleMenu.open(player);else if(slotId==SERVICES)ServiceMenu.open(player);else if(slotId==UPGRADES)UpgradeMenu.open(player);}
+    @Override public void clicked(int slotId,int button,ContainerInput input,Player clicker){if(slotId==DEATHS)DeathMenu.open(player);else if(slotId==BUNDLES)EffectBundleMenu.open(player);else if(slotId==SERVICES)ServiceMenu.open(player);else if(slotId==UPGRADES)UpgradePlaceholderMenu.open(player);}
     @Override public ItemStack quickMoveStack(Player clicker,int slot){return ItemStack.EMPTY;}
     @Override public boolean canTakeItemForPickAll(ItemStack stack, net.minecraft.world.inventory.Slot slot){return false;}
     @Override public boolean stillValid(Player clicker){return true;}

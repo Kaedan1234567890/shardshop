@@ -27,22 +27,19 @@ public final class ChillZoneShardShop implements ModInitializer {
     private static DeathStore deaths;
     private static ShopConfig config;
     private static PerkStore perks;
-    private static UpgradeStore upgrades;
     private static Path transactionLog;
     private static final Map<UUID,Integer> PRE_DEATH_XP=new ConcurrentHashMap<>();
 
     public static DeathStore deaths(){return deaths;}
     public static ShopConfig config(){return config;}
     public static PerkStore perks(){return perks;}
-    public static UpgradeStore upgrades(){return upgrades;}
     public static boolean ready(){return perks!=null;}
 
     @Override public void onInitialize(){
-        config=ShopConfig.load(); deaths=DeathStore.load(); perks=PerkStore.load(); upgrades=UpgradeStore.load();
+        config=ShopConfig.load(); deaths=DeathStore.load(); perks=PerkStore.load();
         transactionLog=net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve("chill-zone-shard-shop-transactions.log");
         BedrockInputManager.init();
         ProspectorService.init();
-        HarvestUpgradeService.init();
 
         CommandRegistrationCallback.EVENT.register((dispatcher,registryAccess,environment)->{
             // /shop itself always opens the FOUR-category main GUI. No subcommand needed.
@@ -61,8 +58,8 @@ public final class ChillZoneShardShop implements ModInitializer {
             DeathRecord death=new DeathRecord(player.level().dimension().identifier().toString(),player.getX(),player.getY(),player.getZ(),player.getYRot(),player.getXRot(),System.currentTimeMillis(),cause,preXp,false);
             deaths.add(player.getUUID(),death);
         });
-        ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();upgrades.save();});
-        LOGGER.info("Chill Zone Shard Shop 0.3.4 initialized — /shop (Deaths, Effect Bundles, Services, Upgrades) is ready.");
+        ServerLifecycleEvents.SERVER_STOPPING.register(server->{deaths.save();perks.save();});
+        LOGGER.info("Chill Zone Shard Shop 0.3.5 started: main /shop has four categories, Upgrades is a placeholder.");
     }
 
     public static synchronized void logTransaction(ServerPlayer player,String action,int cost,String details){

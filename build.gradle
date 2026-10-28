@@ -49,24 +49,3 @@ publishing {
     }
 }
 
-// Safety: older repository copies accidentally contained Chill Zone Vanish sources.
-// Homes must never compile those unrelated files, even if they remain in the clone.
-sourceSets {
-    main {
-        java {
-            exclude 'com/chillzone/vanish/**'
-        }
-    }
-}
-
-// Older repository uploads may retain these unused, outdated upgrade implementations.
-// The 0.2.6 authoritative block harvesting logic is HarvestUpgradeService.
-// Legacy files can remain in GitHub because uploads via the GitHub UI do not delete old files.
-// Only the authoritative UpgradeMenu + HarvestUpgradeService should compile.
-// Without these exclusions UpgradeToggleMenu tries to import the removed UpgradeService.
-sourceSets.main.java.exclude 'com/chillzone/shardshop/UpgradeService.java'
-sourceSets.main.java.exclude 'com/chillzone/shardshop/BlockUpgradeService.java'
-sourceSets.main.java.exclude 'com/chillzone/shardshop/ui/UpgradeToggleMenu.java'
-sourceSets.main.java.exclude 'com/chillzone/shardshop/ui/UpgradeConfirmMenu.java'
-sourceSets.main.java.exclude 'com/chillzone/shardshop/ui/UpgradePurchaseMenu.java'
-sourceSets.main.java.exclude 'com/chillzone/shardshop/ui/UpgradeSettingsMenu.java' 
